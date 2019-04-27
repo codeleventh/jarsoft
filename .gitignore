@@ -1,3 +1,5 @@
+.gitignore
+TODO.md
 HELP.md
 .mvn/
 .mvnw
