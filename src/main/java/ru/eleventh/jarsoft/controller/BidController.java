@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.eleventh.jarsoft.BannerException;
 import ru.eleventh.jarsoft.model.Banner;
-import ru.eleventh.jarsoft.model.BannerRepository;
 import ru.eleventh.jarsoft.service.BannerService;
 import ru.eleventh.jarsoft.service.RequestService;
 
@@ -20,10 +19,6 @@ public class BidController {
     private BannerService bannerService;
     @Autowired
     private RequestService requestService;
-
-    //TODO: del
-    @Autowired
-    BannerRepository bannerRepository;
 
     @GetMapping("bid")
     public ResponseEntity getBannerText(@RequestParam("category") String category, HttpServletRequest request) {

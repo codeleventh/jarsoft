@@ -1,7 +1,6 @@
 package ru.eleventh.jarsoft.service;
 
 import java.util.List;
-import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +13,9 @@ public class BannerService {
 
     @Autowired
     private BannerRepository bannerRepository;
+
+    @Autowired
+    CategoryService categoryService;
 
     public Banner getBannerToDisplay(String category, HttpServletRequest request) throws BannerException {
         String ip = request.getRemoteAddr();
@@ -28,29 +30,43 @@ public class BannerService {
         }
     }
 
-    public void createBanner(Banner banner) {
+    public void createBanner(String catName, String name, String content, Float price) {
+        Long id = categoryService.getCategoryByName(catName).getId();
+        createBanner(id, name, content, price);
+    }
+
+    public void createBanner(Long catId, String name, String content, Float price) {
+        Banner banner = new Banner();
+        banner.setName(name);
+        banner.setContent(content);
+        banner.setPrice(price);
+        banner.setDeleted(false);
+        banner.setCategory(categoryService.getCategoryById(catId));
         bannerRepository.save(banner);
     }
 
-    public Optional<Banner> getBannerById(Long id) {
-        return bannerRepository.findById(id);
+    public Banner getBannerById(Long id) {
+        return bannerRepository.findById(id).get();
     }
 
     public List<Banner> getBanners() {
         return bannerRepository.findAll();
     }
 
-    public void updateBanner(Banner b) {
-        Banner banner = bannerRepository.getOne(b.getId());
-        banner.setName(b.getName());
-        banner.setPrice(b.getPrice());
-        banner.setContent(b.getContent());
-        banner.setDeleted(b.getDeleted());
-        bannerRepository.save(b);
+    public void updateBanner(Long id, Long catId, String name, String content, Float price, Boolean deleted) {
+        Banner banner = bannerRepository.getOne(id);
+        banner.setName(name);
+        banner.setContent(content);
+        banner.setPrice(price);
+        banner.setDeleted(deleted);
+        banner.setCategory(categoryService.getCategoryById(catId));
+        bannerRepository.save(banner);
     }
 
     public void deleteBanner(Long id) {
-        bannerRepository.deleteById(id);
+        Banner banner = bannerRepository.findById(id).get();
+        banner.setDeleted(true);
+        bannerRepository.save(banner);
     }
 
 }

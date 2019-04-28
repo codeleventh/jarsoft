@@ -70,6 +70,14 @@ public class Banner {
         this.deleted = deleted;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public Banner() {
     }
 

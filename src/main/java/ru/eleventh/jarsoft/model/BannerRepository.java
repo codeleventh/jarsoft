@@ -26,5 +26,4 @@ public interface BannerRepository extends JpaRepository<Banner, Long> {
         + "AND r.banner IS NULL "
         + "ORDER BY b.price")
     List<Banner> findOneByCategoryNameOrderByPrice(String categoryName, String ip, String userAgent);
-    //    Banner findUnshownBannerInCategory(String categoryName, String ip, String userAgent);
 }
