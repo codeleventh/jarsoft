@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Jarsoft</title>
+	<link rel="stylesheet" th:href="@{main.css}">
+	<link rel="stylesheet" href="../static/main.css">
+	<link rel="shortcut icon" href="@{favicon.ico}" />
+	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+	<script type="text/javascript" src=" https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
+	<script type="text/javascript" th:src="@{js.js}"></script>
+</head>
+
+<body>
+
+	<div id="menu" class="pure-form">
+		<input id="search" type="text" />
+		<input type="button" value="search" class="pure-button" />
+		<ul>
+			<th:block th:each="banner : ${banners}">
+				<li class="banner">
+					<a th:href="@{'/banner/'+${banner.id}}" th:text="${banner.name}" />
+				</li>
+			</th:block>
+		</ul>
+		<input type=" button " value="+" id="new" class="pure-button" />
+	</div>
+
+	<div id="main ">
+		<form method="post" action="" class="pure-form ">
+			<div class="form-part ">
+				<div>
+					<label for="name ">Name</label>
+					<br/>
+					<input type="text " name="name " id="name " th:value="${banner.price} " />
+				</div>
+				<div>
+					<div>
+						<label for="price ">Price</label>
+						<br/>
+						<input type="text " name="price " id="price " th:value="${banner.price} " />
+					</div>
+					<div>
+						<label for="category ">Category</label>
+						<br/>
+						<select name="category " id="category ">
+							<th:block th:each="category : ${categories} ">
+								<option th:value="${category.id} " th:text=${category.name} th:selected="${category.name==banner.category.name} "></option>
+							</th:block>
+						</select>
+					</div>
+					<div>
+						<label for=" content ">content</label>
+						<br/>
+						<textarea type="text " name="content " id="content " th:text="${banner.content} "></textarea>
+					</div>
+					<input type="submit " value="save " class="pure-button " />
+					<input type="button " value="delete " class="pure-button " />
+				</div>
+			</div>
+		</form>
+	</div>
+
+</body>
+
+</html>

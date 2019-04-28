@@ -1,31 +1,38 @@
 package ru.eleventh.jarsoft;
 
-import java.time.LocalDate;
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
-import ru.eleventh.jarsoft.model.Banner;
-import ru.eleventh.jarsoft.model.BannerRepository;
-import ru.eleventh.jarsoft.model.Category;
-import ru.eleventh.jarsoft.model.CategoryRepository;
-import ru.eleventh.jarsoft.model.Request;
-import ru.eleventh.jarsoft.model.RequestRepository;
+import ru.eleventh.jarsoft.service.BannerService;
+import ru.eleventh.jarsoft.service.CategoryService;
 
 @SpringBootApplication
 public class JarsoftApplication {
 
-    private CategoryRepository categoryRepository;
-    private BannerRepository bannerRepository;
-    private RequestRepository requestRepository;
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private BannerService bannerService;
 
     @Component
     public class DataLoader {
-
         @PostConstruct
         public void initDb() {
+            categoryService.createCategory("music");
+            categoryService.createCategory("food");
+            categoryService.createCategory("hardware");
+
+            bannerService.createBanner("music", "bon jovi", "New album was released!", 3f);
+            bannerService.createBanner("music", "aurora aksnes", "New EP!", 3.2f);
+            bannerService.createBanner("music", "oakenford", "Live at MTV show.", 2.45f);
+
+            bannerService.createBanner("food", "hot-dog", "Taste hot-dog!", 0.45f);
+            bannerService.createBanner("food", "pie", "Taste pie!", 1f);
+            bannerService.createBanner("food", "cola", "Fresh Cola!", 1.2f);
+            bannerService.createBanner("food", "whiskey", "Get drunk!", 3f);
         }
     }
 

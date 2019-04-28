@@ -1,0 +1,33 @@
+body {
+  color: gray;
+
+  margin: 0 auto;
+}
+
+button,
+input[type=button],
+input[type=submit] {
+  margin: 2px;
+}
+
+#menu, #main {
+  padding: 10px;
+  margin: 5px;
+}
+
+#menu {
+  width: 20%;
+  float: left;
+}
+
+#main {
+  display: inline-block;
+  width: 70%;
+}
+
+/* * {
+outline: 1px orange solid;  
+}
+#menu, #main {
+  outline: 5px red solid;
+} */
