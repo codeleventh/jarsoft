@@ -4,26 +4,31 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Request {
 
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
 
-    @JoinColumn
     @ManyToOne
     private Banner banner;
 
-    private String useragent;
+    private String userAgent;
 
     private String ip;
 
     private LocalDate date;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Banner getBanner() {
         return banner;
@@ -33,12 +38,12 @@ public class Request {
         this.banner = banner;
     }
 
-    public String getUseragent() {
-        return useragent;
+    public String getUserAgent() {
+        return userAgent;
     }
 
-    public void setUseragent(String useragent) {
-        this.useragent = useragent;
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
     }
 
     public String getIp() {
@@ -60,9 +65,9 @@ public class Request {
     public Request() {
     }
 
-    public Request(Banner banner, String useragent, String ip, LocalDate date) {
+    public Request(Banner banner, String userAgent, String ip, LocalDate date) {
         this.banner = banner;
-        this.useragent = useragent;
+        this.userAgent = userAgent;
         this.ip = ip;
         this.date = date;
     }

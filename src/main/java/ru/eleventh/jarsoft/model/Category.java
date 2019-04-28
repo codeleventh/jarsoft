@@ -4,16 +4,14 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.UniqueConstraint;
 
 @Entity
 public class Category {
 
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
 
     private String name;
 
@@ -23,6 +21,14 @@ public class Category {
     private List<Banner> banners;
 
     private Boolean isDeleted;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

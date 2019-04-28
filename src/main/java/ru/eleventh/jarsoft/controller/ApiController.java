@@ -4,31 +4,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.eleventh.jarsoft.model.Banner;
-import ru.eleventh.jarsoft.model.BannerRepository;
-import ru.eleventh.jarsoft.model.CategoryRepository;
-import ru.eleventh.jarsoft.model.RequestRepository;
+import ru.eleventh.jarsoft.service.BannerService;
+import ru.eleventh.jarsoft.service.CategoryService;
+import ru.eleventh.jarsoft.service.RequestService;
 
 @RestController
+@RequestMapping("api")
 public class ApiController {
 
     @Autowired
-    private BannerRepository bannerRepository;
+    BannerService bannerService;
     @Autowired
-    private CategoryRepository categoryRepository;
+    CategoryService categoryService;
     @Autowired
-    private RequestRepository requestRepository;
+    RequestService requestService;
 
-    @GetMapping("bid")
-    public ResponseEntity getBannerText(@RequestParam("category") String category) {
-        Banner banner = bannerRepository.findTopByCategoryNameOrderByPrice(category);
-        if (banner != null) {
-            return new ResponseEntity(banner.getContent(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity(HttpStatus.valueOf(204));
-        }
+    @GetMapping("banner")
+    public ResponseEntity<?> getBanners() {
+        return new ResponseEntity<>(
+            bannerService.getBanners(),
+            HttpStatus.OK);
+    }
+
+    @GetMapping("banner/{id}")
+    public ResponseEntity<?> getBannerById(@PathVariable Long id) {
+        return new ResponseEntity<>(bannerService.getBannerById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("category")
+    public ResponseEntity<?> getCategories() {
+        return new ResponseEntity<>(
+            categoryService.getCategories(),
+            HttpStatus.OK);
+    }
+
+    @GetMapping("category/{id}")
+    public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
+        return new ResponseEntity<>(categoryService.getCategoryById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("request")
+    public ResponseEntity<?> getRequests() {
+        return new ResponseEntity<>(requestService.getRequests(), HttpStatus.OK);
     }
 
 }

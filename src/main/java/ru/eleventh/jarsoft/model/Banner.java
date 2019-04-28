@@ -13,7 +13,7 @@ public class Banner {
 
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn
@@ -28,7 +28,15 @@ public class Banner {
 
     private String content;
 
-    private Boolean isDeleted;
+    private Boolean deleted;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -55,11 +63,11 @@ public class Banner {
     }
 
     public Boolean getDeleted() {
-        return isDeleted;
+        return deleted;
     }
 
     public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
+        this.deleted = deleted;
     }
 
     public Banner() {
@@ -70,6 +78,6 @@ public class Banner {
         this.name = name;
         this.price = price;
         this.content = content;
-        this.isDeleted = false;
+        this.deleted = false;
     }
 }
